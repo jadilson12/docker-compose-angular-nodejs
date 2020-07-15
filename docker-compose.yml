@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  nodejs-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    container_name: node-api
+    volumes:
+      - ./api:/usr/src/app/api
+      - /usr/src/app/api/node_modules
+  angular-ui:
+    build:
+      context: ./app-ui
+      dockerfile: Dockerfile
+    ports:
+      - '4201:4201'
+    container_name: angular-ui
+    volumes:
+      - ./app-ui:/usr/src/app/app-ui
+      - /usr/src/app/app-ui/node_modules
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    restart: 'always'
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./database/mysql/data/mysql:/var/lib/mysql
+      - ./database/mysql/logs/mysql:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: node
+      MYSQL_DATABASE: dbnode
+      MYSQL_USER: usnode
+      MYSQL_PASSWORD: pwnode
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE="node"
+    ports:
+      - 27017:27017
