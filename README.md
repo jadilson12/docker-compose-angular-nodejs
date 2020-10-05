@@ -37,3 +37,7 @@ Your  stack is now ready!! You can access it via
    NM_DATABASE: node
    PORT: 27017
   ```
+## Author
+
+Jadilson Guedes <jadilson12@gmail.com>  
+License MIT <https://jadilson12.mit-license.org/>
